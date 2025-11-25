@@ -59,24 +59,3 @@ export async function me(req, res, next) {
     }
     res.status(200).json({ token: req.token, userid: user.userid });
 }
-
-/*
-* 직접 작성한 코드 
-// 회원 가입하는 함수
-export async function singup(req, res, next) {
-  const { userid, password, name, email } = req.body;
-  const user = await authRepository.create(userid, password, name, email);
-  res.status(201).json(user);
-}
-
-// 로그인 하는 함수
-export async function login(req, res, next) {
-  const { userid, password } = req.body;
-  const login = await authRepository.login(userid, password);
-  if (login) {
-    res.status(201).json({ message: "로그인 되었습니다." });
-  } else {
-    res.status(404).json({ message: `${userid}의 회원 정보가 없습니다` });
-  }
-}
-*/
