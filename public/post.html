@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>게시글</title>
+        <link rel="stylesheet" href="./style/post_style.css" />
+    </head>
+    <body>
+        <div class="posts-container">
+            <h2>게시글</h2>
+            <div style="display: flex; flex-direction: row-reverse">
+                <button
+                    id="write-new-post-btn"
+                    onclick="window.location.href='new_post.html'"
+                >
+                    새 글 쓰기
+                </button>
+            </div>
+
+            <section id="posts-list">
+                <p>로딩 중...</p>
+            </section>
+        </div>
+        <script type="module" src="./mjs/post.mjs"></script>
+    </body>
+</html>

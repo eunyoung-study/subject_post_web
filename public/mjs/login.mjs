@@ -61,12 +61,13 @@ function login(event) {
         .then((data) => {
             // JSON 데이터가 성공적으로 파싱된 후 이 블록이 실행
             console.log(
-                "회원가입 성공 응답 데이터 (data):",
+                "로그인 성공 응답 데이터 (data):",
                 JSON.stringify(data, null, 2)
             );
 
             if (data.token) {
                 localStorage.setItem("token", data.token);
+                localStorage.setItem("userid", data.user.userid);
                 alert("로그인 성공! 게시글 페이지로 이동합니다. 🎉");
                 window.location.href = "../post.html";
             } else {

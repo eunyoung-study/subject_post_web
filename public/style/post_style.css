@@ -1,0 +1,238 @@
+@font-face {
+    font-family: "TMoneyDungunbaram";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindRegular.woff")
+        format("woff");
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "TMoneyDungunbaram";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff")
+        format("woff");
+    font-weight: 800;
+    font-display: swap;
+}
+
+:root {
+    --color-primary: #edcfd7;
+    --color-primary-variant: #e7a5b6;
+    --color-accent: #db8aa0;
+    --color-accent-variant: #d6849d;
+    --color-text: black;
+    --color-background: #fdf3f4;
+    --color-update-btn: #ddbbc7;
+    --color-delete-btn: #b392ac;
+
+    --color-white: #ffffff;
+    --color-gray: #777;
+
+    --size-max-width: 1200px;
+}
+
+* {
+    /* padding과 border 값을 포함하기 위한 작업 */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-background);
+    font-family: "TMoneyDungunbaram";
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+.posts-container {
+    width: 100%;
+    max-width: 800px; /* 컨테이너 최대 너비 설정 */
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+}
+
+.posts-container h2 {
+    text-align: center;
+    color: var(--color-accent); /* 진한 분홍색 제목 */
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#posts-list {
+    display: grid; /* 그리드 레이아웃 사용 */
+    gap: 25px; /* 게시글 항목 간의 간격 */
+}
+
+/* 각 게시글 항목의 스타일 */
+.post-item {
+    background-color: #fff;
+    border: 1px solid #ffc1e3; /* 부드러운 테두리 */
+    border-radius: 10px;
+    padding: 20px 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.post-item:hover {
+    transform: translateY(-5px); /* 호버 시 약간 위로 뜨는 효과 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.post-item h3 {
+    color: var(--color-accent-variant); /* 제목 색상 */
+    font-size: 1.6em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ffeeff; /* 제목 아래 구분선 */
+    padding-bottom: 8px;
+    word-break: break-word; /* 긴 단어 줄바꿈 */
+}
+
+.post-item .post-content {
+    color: #4c4c4c;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    white-space: pre-wrap; /* 줄바꿈 및 공백 유지 */
+    word-break: break-word;
+}
+
+.post-item .post-meta {
+    margin: 0; /* 마진 제거 후 post-footer에서 관리 */
+    font-size: 0.9em;
+    color: #757575;
+}
+.post-item .post-meta strong {
+    color: var(--color-accent-variant);
+    font-weight: bold;
+}
+
+.post-item button {
+    padding: 8px 12px; /* 패딩을 약간 줄여서 깔끔하게 */
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    width: auto; /* 너비를 내용에 맞게 */
+}
+
+.post-item button:hover {
+    transform: translateY(-1px);
+}
+
+/* 게시글 사이의 구분선 제거 (post-item 자체에 그림자/테두리 있으므로) */
+hr {
+    display: none;
+}
+
+/* style.css에 추가 */
+.header-with-button {
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝으로 정렬 */
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.posts-container .header-with-button h2 {
+    margin: 0; /* 기존 H2 마진 초기화 */
+}
+
+#write-new-post-btn {
+    padding: 12px 20px;
+    background-color: var(
+        --color-accent
+    ); /* 글쓰기 버튼은 눈에 띄게 다른 색상 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 1rem;
+}
+
+/* --- 1. 게시글 푸터 (버튼 + 작성자 정보) 설정 --- */
+.post-footer {
+    display: flex;
+    justify-content: space-between; /* 버튼 그룹과 작성자 정보를 양쪽 끝으로 정렬 */
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #f0f0f0; /* 상단에 구분선 추가 */
+}
+
+/* --- 2. 버튼 그룹 정렬 --- */
+.action-buttons-left {
+    display: flex;
+    gap: 8px; /* 버튼 사이 간격 줄임 */
+    align-items: center;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px; /* 버튼 사이 간격 */
+    margin-top: 15px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+/* 수정 버튼 */
+.post-item .edit-btn {
+    background-color: var(--color-update-btn); /* 청록색 */
+    color: white;
+}
+.post-item .edit-btn:hover {
+    background-color: #ecc6cb;
+}
+
+/* 삭제 버튼 스타일 */
+.post-item .delete-btn {
+    background-color: var(--color-delete-btn); /* 밝은 주황색 */
+    color: white;
+}
+.post-item .delete-btn:hover {
+    background-color: #735d78;
+}
+#write-new-post-btn:hover {
+    background-color: var(--color-accent-variant);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 600px) {
+    .posts-container {
+        padding: 20px;
+    }
+    .posts-container h2 {
+        font-size: 1.8em;
+    }
+    .post-item h3 {
+        font-size: 1.4em;
+    }
+    .post-item button {
+        width: 100%; /* 모바일에서 버튼 너비 100% */
+        margin-left: 0;
+    }
+    .header-with-button {
+        flex-direction: column;
+        align-items: stretch; /* 버튼이 전체 너비를 차지하도록 */
+    }
+    .posts-container .header-with-button h2 {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    #write-new-post-btn {
+        width: 100%;
+    }
+}
