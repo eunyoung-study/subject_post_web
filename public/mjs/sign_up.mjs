@@ -1,12 +1,12 @@
 function signup(event) {
-    event.preventDefault();
-
     const userid = document.getElementById("userid").value;
     const password = document.getElementById("password").value;
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
 
     const profileImageUrl = document.getElementById("profile-preview").src;
+
+    event.preventDefault();
 
     // 유효성 검사
     if (!userid || !password || !email) {
@@ -30,18 +30,44 @@ function signup(event) {
         }),
     })
         .then((response) => {
+            // 응답 본문을 읽기 전에 복제 (response.json()은 한 번만 호출 가능)
+            const jsonPromise = response.json().catch(() => ({})); // JSON 파싱 실패 시 빈 객체 반환
+
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                // 실패 응답 (4xx, 5xx)일 때: JSON 본문을 읽어서 에러를 던짐
+                return jsonPromise.then((errorData) => {
+                    const status = response.status;
+                    let message;
+
+                    if (status === 409) {
+                        message = `회원가입 실패 (409 Conflict): ${
+                            errorData.message || "이미 존재하는 사용자입니다."
+                        }`;
+                    } else {
+                        message = `HTTP error! status: ${status} | 서버 응답: ${JSON.stringify(
+                            errorData,
+                            null,
+                            2
+                        )}`;
+                    }
+                    throw new Error(message);
+                });
             }
-            return response.json();
+
+            // 성공 응답일 때: 다음 .then()으로 JSON 데이터를 전달
+            return jsonPromise;
         })
         .then((data) => {
-            console.log(JSON.stringify(data, null, 2));
-            // 서버 응답에 'token'이 있을 경우 저장
+            // JSON 데이터가 성공적으로 파싱된 후 이 블록이 실행
+            console.log(
+                "회원가입 성공 응답 데이터 (data):",
+                JSON.stringify(data, null, 2)
+            );
+
             if (data.token) {
                 localStorage.setItem("token", data.token);
-                alert("회원가입 성공!");
-                // 성공 후 페이지 이동 로직 추가 가능
+                alert("회원가입 성공! 로그인 페이지로 이동합니다. 🎉");
+                window.location.href = "../login.html";
             } else {
                 alert(
                     `회원가입 요청은 성공했지만 토큰을 받지 못했습니다: ${
@@ -51,10 +77,8 @@ function signup(event) {
             }
         })
         .catch((error) => {
-            console.error("회원가입 중 에러 발생:", error);
-            alert(
-                `회원가입 실패: ${error.message || "서버 연결 또는 처리 오류"}`
-            );
+            console.error("회원가입 실패:", error);
+            alert(`회원가입 실패: ${error.message}`);
         });
 }
 

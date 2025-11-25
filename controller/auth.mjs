@@ -11,7 +11,7 @@ async function createJwtToken(id) {
 }
 
 // 회원 가입하는 함수
-export async function singup(req, res, next) {
+export async function signup(req, res, next) {
     const { userid, password, name, email, url } = req.body;
 
     // 회원 중복 체크

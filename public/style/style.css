@@ -115,7 +115,7 @@ button[type="reset"] {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #d6849d;
     transform: translateY(-1px);
 }
 
@@ -141,7 +141,7 @@ button[type="reset"]:hover {
 }
 
 .footer-text a:hover {
-    color: #45a049;
+    color: #d6849d;
     text-decoration: underline; /* 호버 시 밑줄 추가 */
 }
 
