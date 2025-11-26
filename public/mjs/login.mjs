@@ -1,9 +1,9 @@
 // 로그인
-const loginForm = document.querySelector(".form");
+const loginForm = document.querySelector("#login-btn");
 
 if (loginForm) {
     // 폼에 submit 이벤트 리스너를 추가
-    loginForm.addEventListener("submit", login);
+    loginForm.addEventListener("click", login);
 }
 
 function login(event) {
@@ -11,8 +11,6 @@ function login(event) {
 
     const userid = document.getElementById("userid").value;
     const password = document.getElementById("password").value;
-
-    console.log(event);
 
     // 유효성 검사
     if (!userid || !password) {

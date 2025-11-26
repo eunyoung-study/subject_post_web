@@ -116,7 +116,8 @@ body {
     font-weight: bold;
 }
 
-.post-item button {
+.post-item button,
+.post-btn-group button {
     padding: 8px 12px; /* 패딩을 약간 줄여서 깔끔하게 */
     border: none;
     border-radius: 6px;
@@ -126,7 +127,8 @@ body {
     width: auto; /* 너비를 내용에 맞게 */
 }
 
-.post-item button:hover {
+.post-item button:hover,
+.post-btn-group button:hover {
     transform: translateY(-1px);
 }
 
@@ -187,17 +189,19 @@ hr {
 }
 
 /* 수정 버튼 */
-.post-item .edit-btn {
-    background-color: var(--color-update-btn); /* 청록색 */
+.post-item .edit-btn,
+.write-btn {
+    background-color: var(--color-update-btn);
     color: white;
 }
-.post-item .edit-btn:hover {
+.post-item .edit-btn:hover,
+.write-btn:hover {
     background-color: #ecc6cb;
 }
 
 /* 삭제 버튼 스타일 */
 .post-item .delete-btn {
-    background-color: var(--color-delete-btn); /* 밝은 주황색 */
+    background-color: var(--color-delete-btn);
     color: white;
 }
 .post-item .delete-btn:hover {
@@ -229,6 +233,42 @@ textarea:focus {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.post-btn-group {
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.content-title {
+    text-align: right;
+    color: #999;
+}
+
+input[type="text"],
+.post-text-area {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s;
+    font-family: "Malgun Gothic", sans-serif;
+}
+
+input[type="text"]:focus,
+.post-text-area:focus {
+    outline: none;
+    border-color: #ec8db5;
+    box-shadow: 0 0 0 3px rgba(236, 141, 181, 0.1);
+}
+
+.post-text-area {
+    min-height: 400px;
+    resize: vertical;
 }
 
 /* 모바일 반응형 */

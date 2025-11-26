@@ -10,43 +10,26 @@
         <div class="posts-container">
             <h2>게시글</h2>
             <div id="postForm">
-                <div class="form-group">
-                    <label for="title">제목</label>
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        placeholder="제목을 입력하세요"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <label for="content">내용</label>
+                <div class="form-group" style="flex-wrap: wrap">
+                    <label class="content-title">내용</label>
                     <textarea
-                        id="content"
-                        name="content"
+                        class="post-text-area"
+                        id="text"
+                        name="text"
                         placeholder="내용을 입력하세요"
                     ></textarea>
-                    <div class="char-count">
-                        <span id="charCount">0</span> / 5000자
-                    </div>
                 </div>
 
-                <div class="button-group">
+                <div class="post-btn-group">
                     <button
                         type="button"
                         class="cancel-btn"
+                        style="margin-right: 1rem"
                         onclick="handleCancel()"
                     >
                         취소
                     </button>
-                    <button
-                        type="button"
-                        class="submit-btn"
-                        onclick="handleSubmit()"
-                    >
-                        새 글 쓰기
-                    </button>
+                    <button class="write-btn" id="writePost">새 글 쓰기</button>
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@ function createPostElement(post) {
 }
 
 /**
- * API에서 게시글 목록을 가져와 HTML에 표시합니다.
+ * API에서 게시글 목록을 가져와 HTML에 표시
  */
 async function loadPosts() {
     const token = localStorage.getItem("token");

@@ -83,11 +83,11 @@ function signup(event) {
 }
 
 // 가입하기
-const registrationForm = document.querySelector(".form");
+const registrationForm = document.querySelector("#register-button");
 
 if (registrationForm) {
     // 폼에 submit 이벤트 리스너를 추가
-    registrationForm.addEventListener("submit", signup);
+    registrationForm.addEventListener("click", signup);
 }
 
 // 프로필 사진 미리보기
