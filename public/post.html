@@ -9,7 +9,14 @@
     <body>
         <div class="posts-container">
             <h2>게시글</h2>
-            <div style="display: flex; flex-direction: row-reverse">
+            <div class="post-top">
+                <div class="post-filter">
+                    <input
+                        id="filter-id"
+                        type="text"
+                        placeholder="게시글 검색할 아이디를 입력하세요"
+                    />
+                </div>
                 <button
                     id="write-new-post-btn"
                     onclick="window.location.href='new_post.html'"

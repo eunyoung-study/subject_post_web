@@ -272,6 +272,19 @@ input[type="text"]:focus,
     resize: vertical;
 }
 
+.post-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-filter {
+    width: 50%;
+}
+
+#filter-id {
+    border-color: var(--color-primary);
+}
+
 /* 모바일 반응형 */
 @media (max-width: 600px) {
     .posts-container {
@@ -302,5 +315,12 @@ input[type="text"]:focus,
         flex-direction: column; /* 작은 화면에서 세로로 배치 */
         align-items: flex-start; /* 항목 왼쪽 정렬 */
         gap: 5px;
+    }
+    .post-top {
+        flex-wrap: wrap;
+    }
+    .post-filter {
+        margin-bottom: 1rem;
+        width: 100%;
     }
 }
