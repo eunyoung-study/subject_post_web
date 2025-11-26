@@ -81,3 +81,19 @@ function login(event) {
             alert(`로그인 실패: ${error.message}`);
         });
 }
+
+
+// 아이디 입력란에서 엔터키 감지
+document.getElementById('userid').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('password').focus();
+    }
+});
+
+// 비밀번호 입력란에서도 엔터키 감지
+document.getElementById('password').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        document.getElementById('login-btn').click();
+    }
+});

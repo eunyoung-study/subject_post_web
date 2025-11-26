@@ -114,3 +114,31 @@ fileInput.addEventListener("change", function (event) {
         previewContainer.classList.remove("is-visible");
     }
 });
+
+// 엔터키 입력 시 다음 input 박스로 이동
+document.getElementById('userid').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('password').focus();
+    }
+});
+
+document.getElementById('password').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('name').focus();
+    }
+});
+
+document.getElementById('name').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('email').focus();
+    }
+});
+
+document.getElementById('email').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+        document.getElementById('register-button').click();
+    }
+});
