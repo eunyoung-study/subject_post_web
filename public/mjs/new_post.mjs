@@ -3,13 +3,17 @@ const POSTS_API_URL = "http://127.0.0.1:8080/post";
 // URL에서 postId 가져오기
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
+const mode = urlParams.get("mode");
 
 const textArea = document.getElementById("text");
 const writeBtn = document.getElementById("writePost");
 const pageTitle = document.querySelector(".posts-container h2");
+const postBtnGroup = document.querySelector(".post-btn-group");
+const goBackBtn = document.getElementById("arrow-left-icon");
 
-// 수정 모드인지 확인
-const isEditMode = Boolean(postId);
+// 수정 또는 보기 모드인지 확인
+const isEditMode = Boolean(postId) && mode !== "view"; // mode가 'view'가 아닐 때만 수정 모드
+const isViewMode = Boolean(postId) && mode === "view"; // 보기 모드 확인
 
 // 페이지 초기화
 async function initPage() {
@@ -18,9 +22,22 @@ async function initPage() {
         pageTitle.textContent = "게시글 수정";
         writeBtn.textContent = "수정하기";
         await loadPostData(postId);
+    } else if (isViewMode) {
+        // 상세 보기 모드
+        pageTitle.textContent = "게시글 상세 보기";
+        writeBtn.style.display = "none"; // '새 글 쓰기' 버튼 숨김
+
+        if (postBtnGroup) {
+            postBtnGroup.style.display = "none"; // 버튼 그룹 전체 숨김
+        }
+
+        textArea.setAttribute("readonly", "true"); // 텍스트 영역을 읽기 전용으로
+        textArea.classList.add("readonly-mode");
+
+        await loadPostData(postId);
     } else {
         // 작성 모드
-        pageTitle.textContent = "게시글";
+        pageTitle.textContent = "게시글 작성";
         writeBtn.textContent = "새 글 쓰기";
     }
 }
@@ -59,6 +76,8 @@ async function loadPostData(id) {
  * 게시글 작성 또는 수정
  */
 async function submitPost() {
+    if (isViewMode) return;
+
     const token = localStorage.getItem("token");
     const text = textArea.value.trim();
 
@@ -111,7 +130,17 @@ async function submitPost() {
 }
 
 // 이벤트 리스너
-writeBtn.addEventListener("click", submitPost);
+if (!isViewMode) {
+    // 보기 모드가 아닐 때만 제출 이벤트 리스너 등록
+    writeBtn.addEventListener("click", submitPost);
+}
+
+if (goBackBtn) {
+    goBackBtn.addEventListener("click", () => {
+        // post.html로 페이지 이동
+        window.location.href = "post.html";
+    });
+}
 
 // 페이지 로드 시 초기화
 initPage();

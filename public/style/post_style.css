@@ -81,6 +81,7 @@ body {
     padding: 20px 25px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .post-item:hover {
@@ -251,13 +252,14 @@ textarea:focus {
 
 input[type="text"],
 .post-text-area {
+    padding: 1rem;
     width: 100%;
     padding: 12px 15px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     font-size: 15px;
     transition: all 0.3s;
-    font-family: "Malgun Gothic", sans-serif;
+    font-family: "TMoneyDungunbaram";
 }
 
 input[type="text"]:focus,
@@ -283,6 +285,23 @@ input[type="text"]:focus,
 
 #filter-id {
     border-color: var(--color-primary);
+}
+
+.post-text-area.readonly-mode {
+    background-color: transparent; /* 배경색 투명하게 */
+    resize: none; /* 크기 조정 핸들 숨기기 */
+    cursor: default; /* 마우스 커서 변경 */
+    transition: none;
+}
+
+.post-text-area.readonly-mode:focus {
+    transition: none;
+    box-shadow: none;
+    border: 2px solid #e0e0e0;
+}
+
+#arrow-left-icon {
+    cursor: pointer;
 }
 
 /* 모바일 반응형 */

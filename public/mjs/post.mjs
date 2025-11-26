@@ -1,4 +1,5 @@
 const postsListContainer = document.getElementById("posts-list");
+const filterInput = document.getElementById("filter-id");
 const POSTS_API_URL = "http://127.0.0.1:8080/post";
 
 /**
@@ -8,9 +9,10 @@ function createPostElement(post) {
     // 여기서 'undefined' 문제를 해결
     const title = post.name;
     const content = post.text || "내용 없음";
-    const author = post.userid || "알 수 없음"; // 작성자 필드도 확인
+    const author = post.userid || "알 수 없음";
 
     const currentUserId = localStorage.getItem("userid");
+    // 문자열로 확실히 비교
     const isOwner = String(currentUserId) === String(post.userid);
 
     let actionButtons = ``;
@@ -24,7 +26,7 @@ function createPostElement(post) {
     }
 
     return `
-        <article class="post-item" data-post-id="${post._id}">
+        <article class="post-item" data-post-id="${post._id}" data-author="${author}">
             <h3>${title}</h3>
             <p class="post-content">${content}</p> 
 
@@ -38,27 +40,30 @@ function createPostElement(post) {
     `;
 }
 
-// 이벤트 위임으로 처리
+// 이벤트 위임으로 처리 (수정/삭제 버튼)
 postsListContainer.addEventListener("click", (e) => {
     const target = e.target;
 
-    // 수정 버튼 클릭
     if (target.classList.contains("edit-btn")) {
         const postId = target.dataset.postId;
         editPost(postId);
-    }
-
-    // 삭제 버튼 클릭
-    if (target.classList.contains("delete-btn")) {
+    } else if (target.classList.contains("delete-btn")) {
         const postId = target.dataset.postId;
         deletePost(postId);
+    } else {
+        const postItem = target.closest(".post-item"); // 가장 가까운 게시글 항목 찾기
+        if (postItem) {
+            const postId = postItem.dataset.postId;
+            // 상세 페이지(new_post.html)로 이동
+            window.location.href = `new_post.html?id=${postId}&mode=view`; // ⭐️ mode=view 쿼리 추가
+        }
     }
 });
 
 /**
  * API에서 게시글 목록을 가져와 HTML에 표시
  */
-async function loadPosts() {
+async function loadPosts(filterUserId = "") {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -68,7 +73,13 @@ async function loadPosts() {
     }
 
     try {
-        const response = await fetch(POSTS_API_URL, {
+        let url = POSTS_API_URL;
+        // 쿼리 파라미터 추가
+        if (filterUserId.trim()) {
+            url += `?userid=${encodeURIComponent(filterUserId.trim())}`;
+        }
+
+        const response = await fetch(url, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -76,6 +87,7 @@ async function loadPosts() {
             },
         });
 
+        // HTTP 상태 코드 처리 (401 인증 만료 포함)
         if (!response.ok) {
             if (response.status === 401) {
                 localStorage.removeItem("token");
@@ -90,9 +102,14 @@ async function loadPosts() {
 
         postsListContainer.innerHTML = "";
 
+        // 게시글이 없는 경우 메시지 출력
         if (!posts || posts.length === 0) {
-            postsListContainer.innerHTML =
-                '<p style="text-align: center; color: #666;">아직 등록된 게시글이 없습니다.</p>';
+            if (filterUserId.trim()) {
+                postsListContainer.innerHTML = `<p style="text-align: center; color: #666;">아이디 "${filterUserId}"로 작성된 게시글이 없습니다.</p>`;
+            } else {
+                postsListContainer.innerHTML =
+                    '<p style="text-align: center; color: #666;">아직 등록된 게시글이 없습니다.</p>';
+            }
             return;
         }
 
@@ -135,12 +152,31 @@ async function deletePost(postId) {
         }
 
         alert("게시글이 삭제되었습니다.");
-        loadPosts(); // 목록 새로고침
+
+        // 현재 필터 값 유지하며 새로고침
+        const currentFilter = filterInput ? filterInput.value.trim() : "";
+        loadPosts(currentFilter);
     } catch (error) {
         console.error("삭제 오류:", error);
         alert("삭제 중 오류가 발생했습니다.");
     }
 }
 
-// 페이지 로드 시 함수 실행
+// 필터 입력란에서 엔터키 감지
+function setupEventListeners() {
+    if (filterInput) {
+        filterInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                const filterValue = this.value.trim();
+                loadPosts(filterValue);
+            }
+        });
+    }
+}
+
+// 1. 이벤트 리스너 설정
+setupEventListeners();
+
+// 2. 페이지 로드 시 게시글 목록 로드
 loadPosts();
