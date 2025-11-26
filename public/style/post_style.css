@@ -70,6 +70,7 @@ body {
 #posts-list {
     display: grid; /* 그리드 레이아웃 사용 */
     gap: 25px; /* 게시글 항목 간의 간격 */
+    color: var(--color-gray);
 }
 
 /* 각 게시글 항목의 스타일 */
@@ -245,7 +246,7 @@ textarea:focus {
 
 .content-title {
     text-align: right;
-    color: #999;
+    color: var(--color-gray);
 }
 
 input[type="text"],
