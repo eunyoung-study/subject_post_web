@@ -1,12 +1,8 @@
-// fetch.mjs 파일
-
 const postsListContainer = document.getElementById("posts-list");
 const POSTS_API_URL = "http://127.0.0.1:8080/post";
 
 /**
- * 단일 게시글 데이터를 받아 HTML 요소를 생성합니다.
- * @param {Object} post - 게시글 데이터 객체
- * @returns {string} 생성된 HTML 문자열
+ * 단일 게시글 데이터를 받아 HTML 요소를 생성
  */
 function createPostElement(post) {
     // 여기서 'undefined' 문제를 해결
