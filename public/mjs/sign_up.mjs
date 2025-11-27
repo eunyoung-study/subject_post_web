@@ -59,10 +59,6 @@ function signup(event) {
         })
         .then((data) => {
             // JSON 데이터가 성공적으로 파싱된 후 이 블록이 실행
-            console.log(
-                "회원가입 성공 응답 데이터 (data):",
-                JSON.stringify(data, null, 2)
-            );
 
             if (data.token) {
                 localStorage.setItem("token", data.token);
@@ -116,29 +112,29 @@ fileInput.addEventListener("change", function (event) {
 });
 
 // 엔터키 입력 시 다음 input 박스로 이동
-document.getElementById('userid').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
+document.getElementById("userid").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
         e.preventDefault();
-        document.getElementById('password').focus();
+        document.getElementById("password").focus();
     }
 });
 
-document.getElementById('password').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
+document.getElementById("password").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
         e.preventDefault();
-        document.getElementById('name').focus();
+        document.getElementById("name").focus();
     }
 });
 
-document.getElementById('name').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
+document.getElementById("name").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
         e.preventDefault();
-        document.getElementById('email').focus();
+        document.getElementById("email").focus();
     }
 });
 
-document.getElementById('email').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        document.getElementById('register-button').click();
+document.getElementById("email").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        document.getElementById("register-button").click();
     }
 });

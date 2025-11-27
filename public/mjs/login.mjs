@@ -58,10 +58,6 @@ function login(event) {
         })
         .then((data) => {
             // JSON 데이터가 성공적으로 파싱된 후 이 블록이 실행
-            console.log(
-                "로그인 성공 응답 데이터 (data):",
-                JSON.stringify(data, null, 2)
-            );
 
             if (data.token) {
                 localStorage.setItem("token", data.token);
@@ -82,18 +78,17 @@ function login(event) {
         });
 }
 
-
 // 아이디 입력란에서 엔터키 감지
-document.getElementById('userid').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
+document.getElementById("userid").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
         e.preventDefault();
-        document.getElementById('password').focus();
+        document.getElementById("password").focus();
     }
 });
 
 // 비밀번호 입력란에서도 엔터키 감지
-document.getElementById('password').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        document.getElementById('login-btn').click();
+document.getElementById("password").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        document.getElementById("login-btn").click();
     }
 });
